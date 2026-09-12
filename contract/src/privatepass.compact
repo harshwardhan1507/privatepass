@@ -1,0 +1,79 @@
+// PrivatePass — privacy-preserving credential verification on Midnight Network
+//
+// This contract lets a user prove they possess a valid credential
+// without revealing the credential itself on the public ledger.
+//
+// PUBLIC state  : verifiedCount — the number of successful verifications
+// PRIVATE state : credential   — the user's secret, supplied as a witness
+//
+// The credential never appears in the public ledger. Only the proof
+// that it is valid, and the resulting counter increment, are public.
+
+import CompactStandardLibrary;
+
+// ---------------------------------------------------------------------------
+// Public ledger state
+// ---------------------------------------------------------------------------
+
+// verifiedCount tracks how many successful verifications have occurred.
+// Anyone can read this value; no private data is encoded here.
+export ledger verifiedCount: Counter;
+
+// ---------------------------------------------------------------------------
+// Private witness
+// ---------------------------------------------------------------------------
+
+// The user's private credential is provided off-chain as a witness.
+// It is a 32-byte value: flexible enough for a hash, passphrase, or key.
+// It is NEVER written to the ledger; the ZK proof guarantees its validity
+// without disclosing its contents.
+witness getCredential(): Bytes<32>;
+
+// ---------------------------------------------------------------------------
+// Validity circuit (private — not exported)
+// ---------------------------------------------------------------------------
+
+// is_valid checks whether the provided credential satisfies our validity rule.
+//
+// For this demonstration the rule is deterministic and simple:
+// a credential is valid if its first byte is non-zero.
+//
+// In a real system this could be: hash preimage, signature check, Merkle proof, etc.
+// The point is that the check runs inside the ZK circuit — the credential
+// itself is never disclosed to the ledger.
+circuit is_valid(credential: Bytes<32>): Boolean {
+  // Access the first byte of the 32-byte credential.
+  // A non-zero leading byte signals a valid credential format.
+  return credential[0] != 0x00 as Uint<8>;
+}
+
+// ---------------------------------------------------------------------------
+// Main exported circuit
+// ---------------------------------------------------------------------------
+
+// verify() is the primary user-facing operation.
+//
+// It:
+//   1. Reads the private credential from the off-chain witness
+//   2. Runs the validity check inside the ZK circuit (private)
+//   3. Asserts the credential is valid (proof fails if not)
+//   4. Increments the public verifiedCount
+//
+// The credential is NOT disclosed. disclose() is NOT called on it.
+// The only public effect is the counter increment.
+export circuit verify(): [] {
+  // Step 1: obtain the private credential via the off-chain witness.
+  // This value stays inside the ZK circuit — it does not touch the ledger.
+  const credential = getCredential();
+
+  // Step 2 & 3: assert validity inside the circuit.
+  // If the credential is invalid, this assert causes the proof to fail.
+  // No information about WHY it failed leaks — the credential remains private.
+  assert(is_valid(credential), "PrivatePass: credential is not valid");
+
+  // Step 4: increment the public verification counter.
+  // This is the ONLY information that reaches the public ledger.
+  // counter.increment() does not require disclose() because Counter
+  // is a standard library type designed for public state mutation.
+  verifiedCount.increment(1);
+}

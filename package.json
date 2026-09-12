@@ -1,0 +1,24 @@
+{
+  "name": "privatepass",
+  "version": "1.0.0",
+  "description": "Privacy-preserving credential verification on Midnight Network",
+  "private": true,
+  "workspaces": [
+    "contract",
+    "web"
+  ],
+  "scripts": {
+    "compile": "npm run compile --workspace=contract",
+    "test": "npm run test --workspace=contract",
+    "dev": "npm run dev --workspace=web",
+    "build": "npm run build --workspace=web"
+  },
+  "engines": {
+    "node": ">=22"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/harshwardhan1507/privatepass.git"
+  },
+  "license": "MIT"
+}
