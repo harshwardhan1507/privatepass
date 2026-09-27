@@ -5,9 +5,9 @@ import React from "react";
 export function Hero() {
   return (
     <section className="pt-12 pb-8 space-y-3">
-      <h1 className="text-3xl md:text-[44px] font-bold text-white tracking-tight leading-[1.15]">
+      <h1 className="text-3xl md:text-[44px] font-bold text-primaryText tracking-tight leading-[1.15]">
         Prove possession<br />
-        <span className="bg-gradient-to-r from-[#3B82F6] via-[#6366F1] to-[#A855F7] bg-clip-text text-transparent">
+        <span className="bg-gradient-to-r from-[#2563EB] via-[#4F46E5] to-[#9333EA] dark:from-[#3B82F6] dark:via-[#6366F1] dark:to-[#A855F7] bg-clip-text text-transparent">
           without revealing identity.
         </span>
       </h1>

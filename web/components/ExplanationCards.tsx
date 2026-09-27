@@ -29,12 +29,12 @@ export function ExplanationCards() {
       {steps.map((step) => (
         <div
           key={step.number}
-          className="bg-surface border border-border rounded-xl p-5 md:p-6 space-y-2.5 transition-all"
+          className="bg-surface border border-border rounded-xl p-5 md:p-6 space-y-2.5 transition-colors"
         >
           <div className="font-mono text-[12px] text-mutedText">
             {step.number}
           </div>
-          <h3 className="font-semibold text-white text-[15px] tracking-tight">
+          <h3 className="font-semibold text-primaryText text-[15px] tracking-tight">
             {step.title}
           </h3>
           <p className="text-secondaryText text-[13px] leading-relaxed">
