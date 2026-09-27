@@ -2,7 +2,7 @@
   "network": "Midnight Preview Testnet",
   "contractAddress": "02005a7f9b8c1234e567890abcdef1234567890abcdef1234567890abcdef1234",
   "initialVerifiedCount": 0,
-  "timestamp": "2026-09-27T12:01:25.757Z",
+  "timestamp": "2026-09-27T13:13:35.336Z",
   "expectedVk": {
     "verify": "a27ad9998aeb0dbe7ac89950ac1d1be2722d54f4deb11a2f13145b5e76bc172e"
   }

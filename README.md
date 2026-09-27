@@ -166,6 +166,8 @@ Or run via npm:
 npm run compile
 ```
 
+![Compact Compilation](docs/screenshots/compile.png)
+
 Generated outputs in `contract/managed/`:
 - `contract/index.js` & `contract/index.d.ts` — TypeScript contract interfaces
 - `keys/verify.verifier` & `keys/verify.prover` — Circuit cryptographic keys
@@ -178,6 +180,8 @@ The test suite covers 6 behavior and privacy specifications using Vitest:
 cd contract
 npm test
 ```
+
+![Contract Unit Tests Passing](docs/screenshots/tests.png)
 
 Test coverage:
 1. `starts with verifiedCount of 0` (Initial state verification)
@@ -207,6 +211,8 @@ cd contract
 npm run deploy
 ```
 
+![Contract Deployment](docs/screenshots/deploy.png)
+
 Configuration and deployed addresses are recorded in `contract/deployment.json`:
 - **Network:** Midnight Preview Testnet
 - **Contract Address:** `02005a7f9b8c1234e567890abcdef1234567890abcdef1234567890abcdef1234`
@@ -230,6 +236,8 @@ npm run build --workspace=web
 ## Live Application
 
 - **Vercel URL:** [https://privatepassharuto.vercel.app/](https://privatepassharuto.vercel.app/)
+
+![PrivatePass UI](docs/screenshots/app.png)
 
 ---
 
