@@ -227,6 +227,12 @@ npm run build --workspace=web
 
 ---
 
+## Live Application
+
+- **Vercel URL:** [https://privatepassharuto.vercel.app/](https://privatepassharuto.vercel.app/)
+
+---
+
 ## Known Limitations & Design Notes
 
 1. **Synthetic Validity Rule:** For the Level 1 demonstration, the contract uses the deterministic constraint `credential[0] != 0x00`. In a production setting, this check can be substituted with a signature verification, Merkle membership proof, or cryptographic hash preimage without altering the outer privacy model.
