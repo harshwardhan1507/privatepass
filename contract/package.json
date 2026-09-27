@@ -8,10 +8,12 @@
     "compile": "compact compile src/privatepass.compact managed/",
     "compile:skip-zk": "compact compile --skip-zk src/privatepass.compact managed/",
     "test": "vitest run",
-    "test:watch": "vitest"
+    "test:watch": "vitest",
+    "deploy": "npx tsx scripts/deploy.ts"
   },
   "devDependencies": {
     "@midnight-ntwrk/compact-runtime": "^0.19.0",
+    "tsx": "^4.19.2",
     "typescript": "^5.6.3",
     "vitest": "^2.1.8"
   },
