@@ -54,26 +54,27 @@ circuit is_valid(credential: Bytes<32>): Boolean {
 // verify() is the primary user-facing operation.
 //
 // It:
-//   1. Reads the private credential from the off-chain witness
+//   1. Reads the private credential from the off-chain witness (private)
 //   2. Runs the validity check inside the ZK circuit (private)
-//   3. Asserts the credential is valid (proof fails if not)
-//   4. Increments the public verifiedCount
+//   3. Deliberately discloses only the derived 1-bit boolean validity statement (disclose)
+//   4. Asserts that the disclosed validity condition holds
+//   5. Increments the public verifiedCount on the ledger
 //
-// The credential is NOT disclosed. disclose() is NOT called on it.
-// The only public effect is the counter increment.
+// The raw 32-byte credential is NEVER disclosed and remains private.
+// disclose() is used deliberately on the derived boolean result.
 export circuit verify(): [] {
   // Step 1: obtain the private credential via the off-chain witness.
-  // This value stays inside the ZK circuit — it does not touch the ledger.
+  // This value stays private inside the ZK circuit.
   const credential = getCredential();
 
-  // Step 2 & 3: assert validity inside the circuit.
-  // If the credential is invalid, this assert causes the proof to fail.
-  // No information about WHY it failed leaks — the credential remains private.
-  assert(is_valid(credential), "PrivatePass: credential is not valid");
+  // Step 2: compute validity inside the private circuit.
+  const valid = is_valid(credential);
 
-  // Step 4: increment the public verification counter.
-  // This is the ONLY information that reaches the public ledger.
-  // counter.increment() does not require disclose() because Counter
-  // is a standard library type designed for public state mutation.
+  // Step 3 & 4: deliberately disclose only the validity outcome.
+  // disclose() is required to declassify the derived private boolean into
+  // the public verification domain so the ledger asserts validity.
+  assert(disclose(valid), "PrivatePass: credential is not valid");
+
+  // Step 5: increment the public verification counter.
   verifiedCount.increment(1);
 }
