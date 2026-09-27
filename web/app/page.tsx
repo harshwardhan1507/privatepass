@@ -16,16 +16,18 @@ export default function Home() {
   };
 
   return (
-    <div className="min-h-screen flex flex-col justify-between max-w-5xl mx-auto px-6 md:px-8">
+    <div className="min-h-screen flex flex-col justify-between max-w-[1200px] mx-auto px-6 md:px-10">
       <div>
         <Header walletAddress={walletAddress} />
-        <main className="space-y-6">
+        <main className="space-y-12">
           <Hero />
-          <ProofCard
-            verifiedCount={verifiedCount}
-            onVerificationSuccess={handleVerificationSuccess}
-          />
-          <ExplanationCards />
+          <div className="space-y-8 md:space-y-10">
+            <ProofCard
+              verifiedCount={verifiedCount}
+              onVerificationSuccess={handleVerificationSuccess}
+            />
+            <ExplanationCards />
+          </div>
         </main>
       </div>
       <Footer />

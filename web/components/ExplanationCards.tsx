@@ -25,19 +25,19 @@ export function ExplanationCards() {
   ];
 
   return (
-    <section className="grid grid-cols-1 md:grid-cols-3 gap-4 pt-2">
+    <section className="grid grid-cols-1 md:grid-cols-3 gap-4 pt-1">
       {steps.map((step) => (
         <div
           key={step.number}
-          className="bg-surface border border-border rounded-xl p-5 md:p-6 space-y-2.5 transition-colors"
+          className="bg-[#0C0F16] border border-[#1D2430] rounded-[12px] p-6 space-y-2 transition-colors"
         >
-          <div className="font-mono text-[12px] text-mutedText">
+          <div className="font-mono text-[12px] text-[#687386]">
             {step.number}
           </div>
-          <h3 className="font-semibold text-primaryText text-[15px] tracking-tight">
+          <h3 className="font-semibold text-[#F5F7FA] text-[15px] tracking-tight">
             {step.title}
           </h3>
-          <p className="text-secondaryText text-[13px] leading-relaxed">
+          <p className="text-[#9CA6B7] text-[13px] leading-relaxed">
             {step.description}
           </p>
         </div>

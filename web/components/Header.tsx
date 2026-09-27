@@ -1,7 +1,7 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
-import { ExternalLink, Copy, Check, Sun, Moon } from "lucide-react";
+import React, { useState } from "react";
+import { ExternalLink, Copy, Check } from "lucide-react";
 
 interface HeaderProps {
   walletAddress: string;
@@ -9,37 +9,6 @@ interface HeaderProps {
 
 export function Header({ walletAddress }: HeaderProps) {
   const [copied, setCopied] = useState(false);
-  const [isDark, setIsDark] = useState(true);
-
-  useEffect(() => {
-    // Check initial preference from class, localStorage, or system preference
-    const isDarkMode =
-      document.documentElement.classList.contains("dark") ||
-      (!document.documentElement.classList.contains("light") &&
-        window.matchMedia("(prefers-color-scheme: dark)").matches);
-    setIsDark(isDarkMode);
-    if (isDarkMode) {
-      document.documentElement.classList.add("dark");
-      document.documentElement.classList.remove("light");
-    } else {
-      document.documentElement.classList.add("light");
-      document.documentElement.classList.remove("dark");
-    }
-  }, []);
-
-  const toggleTheme = () => {
-    const nextIsDark = !isDark;
-    setIsDark(nextIsDark);
-    if (nextIsDark) {
-      document.documentElement.classList.add("dark");
-      document.documentElement.classList.remove("light");
-      localStorage.setItem("theme", "dark");
-    } else {
-      document.documentElement.classList.add("light");
-      document.documentElement.classList.remove("dark");
-      localStorage.setItem("theme", "light");
-    }
-  };
 
   const handleCopy = () => {
     navigator.clipboard.writeText(walletAddress);
@@ -48,18 +17,18 @@ export function Header({ walletAddress }: HeaderProps) {
   };
 
   return (
-    <header className="flex flex-wrap items-center justify-between gap-4 py-6 border-b border-border-subtle transition-colors">
+    <header className="flex flex-wrap items-center justify-between gap-4 py-5 border-b border-[#171D27]">
       {/* Left Branding */}
       <div>
         <div className="flex items-center gap-2.5">
-          <span className="font-semibold text-primaryText text-[17px] tracking-tight">
+          <span className="font-semibold text-[#F5F7FA] text-[16px] tracking-tight">
             PrivatePass
           </span>
-          <span className="text-[11px] font-medium px-2 py-0.5 rounded-full bg-surface-elevated text-secondaryText border border-border">
+          <span className="text-[11px] font-medium px-2 py-0.5 rounded-full bg-[#10141D] text-[#9CA6B7] border border-[#1D2430]">
             Midnight · Level 1
           </span>
         </div>
-        <p className="text-[12px] text-mutedText mt-0.5">
+        <p className="text-[12px] text-[#687386] mt-0.5">
           Zero-Knowledge Credential Verification
         </p>
       </div>
@@ -70,47 +39,33 @@ export function Header({ walletAddress }: HeaderProps) {
           href="https://github.com/harshwardhan1507/privatepass"
           target="_blank"
           rel="noreferrer"
-          className="text-[13px] text-secondaryText hover:text-primaryText transition-colors flex items-center gap-1.5"
+          className="text-[13px] text-[#9CA6B7] hover:text-[#F5F7FA] transition-colors flex items-center gap-1.5"
         >
           GitHub
-          <ExternalLink className="w-3.5 h-3.5 text-mutedText" />
+          <ExternalLink className="w-3.5 h-3.5 text-[#687386]" />
         </a>
 
         <a
           href="https://midnight.network"
           target="_blank"
           rel="noreferrer"
-          className="text-[13px] text-secondaryText hover:text-primaryText transition-colors flex items-center gap-1.5"
+          className="text-[13px] text-[#9CA6B7] hover:text-[#F5F7FA] transition-colors flex items-center gap-1.5"
         >
           Midnight Network
-          <ExternalLink className="w-3.5 h-3.5 text-mutedText" />
+          <ExternalLink className="w-3.5 h-3.5 text-[#687386]" />
         </a>
 
-        {/* Theme Toggle Button */}
-        <button
-          onClick={toggleTheme}
-          title={isDark ? "Switch to light theme" : "Switch to dark theme"}
-          aria-label="Toggle theme"
-          className="p-1.5 rounded-lg bg-surface-elevated border border-border hover:border-slate-500/40 text-secondaryText hover:text-primaryText transition-colors"
-        >
-          {isDark ? (
-            <Sun className="w-4 h-4 text-amber-400" />
-          ) : (
-            <Moon className="w-4 h-4 text-indigo-500" />
-          )}
-        </button>
-
-        {/* Wallet Address Chip */}
+        {/* Wallet Address Status Pill */}
         <button
           onClick={handleCopy}
           title="Click to copy address"
-          className="flex items-center gap-2 px-3 py-1.5 rounded-lg bg-surface-elevated border border-border hover:border-slate-500/40 transition-colors text-[12px] font-mono text-secondaryText hover:text-primaryText"
+          className="flex items-center gap-2 px-3 py-1.5 rounded-lg bg-[#10141D] border border-[#1D2430] hover:border-[#252D3A] transition-colors text-[12px] font-mono text-[#9CA6B7] hover:text-[#F5F7FA]"
         >
           <span>{walletAddress}</span>
           {copied ? (
-            <Check className="w-3.5 h-3.5 text-emerald-500" />
+            <Check className="w-3.5 h-3.5 text-emerald-400" />
           ) : (
-            <Copy className="w-3.5 h-3.5 text-mutedText" />
+            <Copy className="w-3.5 h-3.5 text-[#687386]" />
           )}
         </button>
       </div>
